@@ -18,7 +18,7 @@ INSERT INTO courses (id, title, description, credits, is_elective, likes, level)
 
 INSERT INTO students (name, email) VALUES
     ('Aigerim Sadykova', 'aigerim@example.com'),
-    ('Daniyar Bekov', 'daniyar@example.com'),
+    ('Abilzhanova Akbota', 'akbota@example.com'),
     ('Asel Omarova', 'asel@example.com');
 
 INSERT INTO enrollments (course_id, student_id) VALUES

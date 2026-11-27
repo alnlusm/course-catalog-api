@@ -131,7 +131,7 @@ The "My courses" screen of student 2; numbers from `measure.py`, starting data.
 | Criterion | REST | GraphQL | Source |
 |---|---|---|---|
 | Requests and rounds per screen | 5 requests, 2 rounds (student + enrollments, then 3 courses) | 1 request, 1 round | `measure.py`, step 8 |
-| Bytes in the responses | 1145 (full courses, names, dates) | 339 (only the fields asked for) | `measure.py`, step 8 |
+| Bytes in the responses | 1164 (full courses, names, dates) | 344 (only the fields asked for) | `measure.py`, step 8 |
 | SQL queries per screen | 5 (1 per request) | 3 (with DataLoaders) | `measure.py`, `X-SQL-Queries` |
 | SQL growth with more students | constant per route: the shape is known, one JOIN (`GET /enrollments` = 1) | without loaders 7 → 27 and 7 → 24 (3 → 20 students); with loaders 3 and 3 on both | `try_n_plus_1.py`, experiments 4–5 |
 | Error in the query text | 404 for an unknown address, 422 for invalid parameters | 200, `data: null`, the message in `errors` with "Did you mean" | experiments 1 and 8 |
@@ -140,8 +140,8 @@ The "My courses" screen of student 2; numbers from `measure.py`, starting data.
 | Protection from "expensive" queries | the route fixes the query and its limit; rate limit counts requests | the client builds the query: needs depth and alias limits, argument checks, error masking; 12 likes fit into one POST | experiments 6 and 7 |
 
 **Conclusion.** For a screen that collects related data, like "My courses", GraphQL
-is better: 1 request instead of 5, one round instead of two, 339 bytes instead of
-1145, and with DataLoaders the SQL count stays 3 no matter how many students there
+is better: 1 request instead of 5, one round instead of two, 344 bytes instead of
+1164, and with DataLoaders the SQL count stays 3 no matter how many students there
 are. Public simple lists like `/courses` I would leave on REST: they are one SQL
 query, they can be cached by URL, and errors come with honest HTTP statuses.
 GraphQL also costs more to make safe: without protection one POST did 12 writes
